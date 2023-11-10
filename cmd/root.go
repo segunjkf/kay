@@ -1,13 +1,12 @@
 /*
 Copyright © 2023 Saka-Aiyedun Segun sege..timz12@gmail.com
-
 */
 package cmd
 
 import (
 	"fmt"
-	"os"
 	"github.com/segunjkf/kay/cmd/net"
+	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -19,7 +18,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "kay",
 	Short: "kay is tool for performing common devops tasks",
-	Long: `"kay is tool for performing common devops tasks".`,
+	Long:  `"kay is tool for performing common devops tasks".`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -33,7 +32,6 @@ func Execute() {
 		os.Exit(1)
 	}
 }
-
 
 // Function for adding adding sub command palette
 func NewCommandS() {

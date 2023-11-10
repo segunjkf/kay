@@ -1,11 +1,9 @@
 /*
 Copyright © 2023 Saka-Aiyedun Segun sege.timz12@gmail.com
-
 */
 package net
 
 import (
-
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +11,7 @@ import (
 var NetCmd = &cobra.Command{
 	Use:   "net",
 	Short: "A sub pallet for network based commands",
-	Long: `A sub pallet for network based commands`,
+	Long:  `A sub pallet for network based commands`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},

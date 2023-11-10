@@ -4,8 +4,8 @@ Copyright © 2023 Saka-Aiyedin Segun sege.timz12@gmail.com
 package net
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -26,8 +26,8 @@ var pingCmd = &cobra.Command{
 	Long:  `This pings a remote URL and returns the response`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
-		
-		// use the ping function 
+
+		// use the ping function
 		if response, err := ping(inputUrl); err != nil {
 			fmt.Print(err)
 		} else {
@@ -36,14 +36,14 @@ var pingCmd = &cobra.Command{
 	},
 }
 
-func ping(domain string ) (int, error) {
+func ping(domain string) (int, error) {
 	url := "http://" + domain
 	newRequest, err := http.NewRequest("HEAD", url, nil)
 	if err != nil {
-		return 0,  fmt.Errorf("unable to create new request: %v", err)
+		return 0, fmt.Errorf("unable to create new request: %v", err)
 	}
 
-	requestResponse, err :=  client.Do(newRequest)
+	requestResponse, err := client.Do(newRequest)
 	if err != nil {
 		return 0, fmt.Errorf("unable to ping url: %v", err)
 	}
@@ -53,7 +53,7 @@ func ping(domain string ) (int, error) {
 }
 
 func init() {
-	 NetCmd.AddCommand(pingCmd)
+	NetCmd.AddCommand(pingCmd)
 
 	// Here you will define your flags and configuration settings.
 
