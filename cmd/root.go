@@ -5,8 +5,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/segunjkf/kay/cmd/net"
 	"os"
+
+	"github.com/segunjkf/kay/cmd/net"
+	"github.com/segunjkf/kay/cmd/tool"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -36,6 +38,7 @@ func Execute() {
 // Function for adding adding sub command palette
 func NewCommandS() {
 	rootCmd.AddCommand(net.NetCmd)
+	rootCmd.AddCommand(tool.ToolCmd)
 }
 
 func init() {

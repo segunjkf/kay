@@ -31,7 +31,7 @@ var pingCmd = &cobra.Command{
 		if response, err := ping(inputUrl); err != nil {
 			fmt.Print(err)
 		} else {
-			print(response)
+			fmt.Print(response)
 		}
 	},
 }
@@ -59,7 +59,7 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	pingCmd.PersistentFlags().StringVarP(&inputUrl, "url", "u", "", "Custom Url to ping")
+	pingCmd.PersistentFlags().StringVarP(&inputUrl, "url", "u", "", "custom Url to ping")
 	if err := pingCmd.MarkFlagRequired("url"); err != nil {
 		fmt.Println(err)
 	}
