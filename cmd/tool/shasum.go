@@ -15,16 +15,16 @@ import (
 )
 
 var (
-	file    string
-	shaType string
+	file       string
+	shaType    string
+	shaFileLoc string
 )
 
 var shasumCmd = &cobra.Command{
-	Use:   "shasum",
-	Short: "generates shasum of a file or input text.",
-	Long:  `generates shasum of a file or input text and also sub command to verify file with its sha`,
+	Use:   "shasum [file] [shaType]",
+	Short: "Generates SHA checksum of a file",
+	Long:  `The shasum command calculates and prints the SHA checksum (SHA1 or SHA256) for a specified file. It requires a file path and the type of SHA sum to generate (sha256 or sha1).`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
 
 		f, err := openfile(file)
 		if err != nil {
@@ -36,27 +36,30 @@ var shasumCmd = &cobra.Command{
 		if shaType == "sha256" {
 			sha256sum, err := gensha256sum(f)
 			if err != nil {
-				logrus.Error(err)
+				logrus.Errorf("Failed to generate SHA256 sum for '%s': %v", file, err)
 			} else {
-				fmt.Println(sha256sum)
+				fmt.Println("SHA256:", sha256sum)
 			}
 		} else if shaType == "sha1" {
 			sha1sum, err := gensha1sum(f)
 			if err != nil {
-				logrus.Error(err)
+				logrus.Errorf("Failed to generate SHA1 sum for '%s': %v", file, err)
 			} else {
-				fmt.Println(sha1sum)
+				fmt.Println("SHA1:", sha1sum)
 			}
+		} else {
+			logrus.Errorf("Unknown hash algorithm '%s'. Please select either 'sha256' or 'sha1'.", shaType)
 		}
+		// if
 	},
 }
 
-// Function Openning file from the user input
+// Function for Opening file from the user input
 func openfile(file string) (*os.File, error) {
 
 	f, err := os.Open(file)
 	if err != nil {
-		return nil, fmt.Errorf("unable to Open the file: %v", err)
+		return nil, fmt.Errorf("unable to open the file: %v", err)
 	}
 
 	return f, nil
@@ -76,10 +79,8 @@ func gensha1sum(file *os.File) (string, error) {
 
 func gensha256sum(file *os.File) (string, error) {
 
-	f := file
-
 	h := sha256.New()
-	if _, err := io.Copy(h, f); err != nil {
+	if _, err := io.Copy(h, file); err != nil {
 		return "", fmt.Errorf("unable to generate create new hash: %v", err)
 	}
 
@@ -94,7 +95,7 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	shasumCmd.PersistentFlags().StringVarP(&file, "file", "f", "", "Path to the file")
+	shasumCmd.Flags().StringVarP(&file, "file", "f", "", "Path to the file")
 	if err := shasumCmd.MarkFlagRequired("file"); err != nil {
 		fmt.Println(err)
 	}

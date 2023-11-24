@@ -25,7 +25,6 @@ var pingCmd = &cobra.Command{
 	Short: "This pings a remote URL and returns the response",
 	Long:  `This pings a remote URL and returns the response`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
 
 		// use the ping function
 		if response, err := ping(inputUrl); err != nil {
@@ -59,7 +58,7 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	pingCmd.PersistentFlags().StringVarP(&inputUrl, "url", "u", "", "custom Url to ping")
+	pingCmd.Flags().StringVarP(&inputUrl, "url", "u", "", "custom Url to ping")
 	if err := pingCmd.MarkFlagRequired("url"); err != nil {
 		fmt.Println(err)
 	}
